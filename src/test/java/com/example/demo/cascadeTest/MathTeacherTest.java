@@ -6,17 +6,12 @@ import com.example.demo.dao.MathTeacherRepository;
 import com.example.demo.domain.HighStudent;
 import com.example.demo.domain.MathTeacher;
 import com.example.demo.util.UUIDUtils;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Example;
-import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
-import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
