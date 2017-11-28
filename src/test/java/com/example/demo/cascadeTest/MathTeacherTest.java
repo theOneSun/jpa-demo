@@ -96,7 +96,7 @@ public class MathTeacherTest
         MathTeacher teacher1 = new MathTeacher(UUIDUtils.getUUID(),"Guardiola",null);
         MathTeacher teacher2 = new MathTeacher(UUIDUtils.getUUID(),"Mourinho",null);
         HighStudent highStudent1 = new HighStudent(UUIDUtils.getUUID(),"Pique","3",teacher1);
-        HighStudent highStudent2 = new HighStudent(UUIDUtils.getUUID(),"Ramos","3",teacher2);
+        HighStudent highStudent2 = new HighStudent(UUIDUtils.getUUID(),"Ramos","4",teacher2);
         List<HighStudent> list = new ArrayList<>();
         list.add(highStudent1);
         list.add(highStudent2);
