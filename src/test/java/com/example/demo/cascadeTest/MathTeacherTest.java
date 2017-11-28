@@ -102,6 +102,4 @@ public class MathTeacherTest
         list.add(highStudent2);
         studentRepository.save(list);
     }
-
-
 }
