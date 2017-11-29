@@ -23,16 +23,22 @@ public class CriteriaTestDao
     private EntityManager entityManager;
 
     //根据条件查找
-    public List<MathTeacher> findByCriteria(List<String> studentNameList){
-        MathTeacher teacher = new MathTeacher();
-        teacher.setName(studentNameList.get(0));
+    public List<MathTeacher> findByCriteria(List<String> nameList){
+        /*MathTeacher teacher = new MathTeacher();
+        teacher.setName(studentNameList.get(0));*/
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<MathTeacher> query = criteriaBuilder.createQuery(MathTeacher.class);
         Root<MathTeacher> teacherRoot = query.from(MathTeacher.class);
 //        Predicate condition = qb.gt(p.get(Person_.age), 20);
         //todo 熟悉criteria用法和restrictions的用法
-        Predicate predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacher.getName());
-        query.where(predicate);
+        Predicate predicate;
+        for (String teacherName : nameList)
+        {
+            predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName);
+            query.where(predicate);
+        }
+
         TypedQuery<MathTeacher> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
     }

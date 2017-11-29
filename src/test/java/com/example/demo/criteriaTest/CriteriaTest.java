@@ -27,6 +27,7 @@ public class CriteriaTest
     {
         List<String> nameList = new ArrayList<>();
         nameList.add("Guardiola");
+        nameList.add("Mourinho");
         List<MathTeacher> resultList = criteriaTestDao.findByCriteria(nameList);
         resultList.forEach(System.out::println);
     }
