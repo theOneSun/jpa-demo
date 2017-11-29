@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,12 +33,19 @@ public class CriteriaTestDao
         Root<MathTeacher> teacherRoot = query.from(MathTeacher.class);
 //        Predicate condition = qb.gt(p.get(Person_.age), 20);
         //todo 熟悉criteria用法和restrictions的用法
-        Predicate predicate;
+        Predicate predicate =  null;
+        List<Predicate> predicateList = new ArrayList<>();
+        CriteriaBuilder.In<String> in = criteriaBuilder.in(teacherRoot.get(MathTeacher_.name));
         for (String teacherName : nameList)
         {
-            predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName);
-            query.where(predicate);
+//            predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName);
+            //predicate = criteriaBuilder.or(criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName));
+            in.value(teacherName);
+//            predicateList.add(criteriaBuilder.in(in));
+            //query.where(predicate);
         }
+        predicateList.add(criteriaBuilder.in(in));
+        query.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
         TypedQuery<MathTeacher> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
