@@ -2,7 +2,9 @@ package com.example.demo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.CascadeType;
@@ -17,7 +19,8 @@ import javax.persistence.OneToMany;
  * @author sunjian.
  */
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class HighStudent
@@ -36,5 +39,11 @@ public class HighStudent
         this.id = id;
         this.name = name;
         this.number = number;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "HighStudent{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", number='" + number + '\'' + ", mathTeacher=" + mathTeacher.getName() + '}';
     }
 }

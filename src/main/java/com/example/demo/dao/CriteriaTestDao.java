@@ -1,7 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.MathTeacher;
-import org.hibernate.criterion.Restrictions;
+import com.example.demo.domain.MathTeacher_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -31,7 +31,7 @@ public class CriteriaTestDao
         Root<MathTeacher> teacherRoot = query.from(MathTeacher.class);
 //        Predicate condition = qb.gt(p.get(Person_.age), 20);
         //todo 熟悉criteria用法和restrictions的用法
-        Predicate predicate = criteriaBuilder.equal(teacherRoot.get("name"), teacher);
+        Predicate predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacher.getName());
         query.where(predicate);
         TypedQuery<MathTeacher> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();

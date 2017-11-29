@@ -9,6 +9,7 @@ import lombok.ToString;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Set;
@@ -19,7 +20,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class MathTeacher
@@ -28,8 +28,14 @@ public class MathTeacher
     @Column(length = 32)
     private String id;
     @Column(length = 20)
-    public String name;
+    private String name;
     //一对多
-    @OneToMany(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE }, mappedBy = "mathTeacher")
+    @OneToMany(cascade = { CascadeType.REFRESH, CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE }, mappedBy = "mathTeacher",fetch = FetchType.EAGER)
     private Set<HighStudent> studentSet;
+
+    @Override
+    public String toString()
+    {
+        return "MathTeacher{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", studentSet=" + studentSet + '}';
+    }
 }
