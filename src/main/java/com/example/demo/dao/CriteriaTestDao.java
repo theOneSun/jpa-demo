@@ -24,30 +24,15 @@ public class CriteriaTestDao
     private EntityManager entityManager;
 
     //根据条件查找
-    public List<MathTeacher> findByCriteria(List<String> nameList){
-        /*MathTeacher teacher = new MathTeacher();
-        teacher.setName(studentNameList.get(0));*/
-
+    public MathTeacher findByCriteria(String name)
+    {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<MathTeacher> query = criteriaBuilder.createQuery(MathTeacher.class);
         Root<MathTeacher> teacherRoot = query.from(MathTeacher.class);
-//        Predicate condition = qb.gt(p.get(Person_.age), 20);
         //todo 熟悉criteria用法和restrictions的用法
-        Predicate predicate =  null;
-        List<Predicate> predicateList = new ArrayList<>();
-        CriteriaBuilder.In<String> in = criteriaBuilder.in(teacherRoot.get(MathTeacher_.name));
-        for (String teacherName : nameList)
-        {
-//            predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName);
-            //predicate = criteriaBuilder.or(criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), teacherName));
-            in.value(teacherName);
-//            predicateList.add(criteriaBuilder.in(in));
-            //query.where(predicate);
-        }
-        predicateList.add(criteriaBuilder.in(in));
-        query.where(predicateList.toArray(new Predicate[predicateList.size()]));
-
+        Predicate predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), name);
+        query.where(predicate);
         TypedQuery<MathTeacher> typedQuery = entityManager.createQuery(query);
-        return typedQuery.getResultList();
+        return typedQuery.getSingleResult();
     }
 }

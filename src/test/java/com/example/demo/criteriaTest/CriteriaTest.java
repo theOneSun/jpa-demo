@@ -26,9 +26,9 @@ public class CriteriaTest
     public void testFindByName() throws Exception
     {
         List<String> nameList = new ArrayList<>();
-        nameList.add("Guardiola");
-        nameList.add("Mourinho");
-        List<MathTeacher> resultList = criteriaTestDao.findByCriteria(nameList);
-        resultList.forEach(System.out::println);
+//        nameList.add("Guardiola");
+//        nameList.add("Mourinho");
+        MathTeacher result = criteriaTestDao.findByCriteria("Guardiola");
+        System.out.println(result);
     }
 }
