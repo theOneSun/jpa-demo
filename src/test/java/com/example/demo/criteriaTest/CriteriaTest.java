@@ -31,4 +31,15 @@ public class CriteriaTest
         MathTeacher result = criteriaTestDao.findByCriteria("Guardiola");
         System.out.println(result);
     }
+
+    @Test
+    public void testFindByList() throws Exception
+    {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("Guardiola");
+        nameList.add("Mourinho");
+        List<MathTeacher> resultList = criteriaTestDao.findByNameList(nameList);
+        resultList.forEach(System.out::println);
+
+    }
 }

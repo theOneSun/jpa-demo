@@ -35,4 +35,29 @@ public class CriteriaTestDao
         TypedQuery<MathTeacher> typedQuery = entityManager.createQuery(query);
         return typedQuery.getSingleResult();
     }
+
+    //根据名字的集合查找
+    public List<MathTeacher> findByNameList(List<String> nameList){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<MathTeacher> query = criteriaBuilder.createQuery(MathTeacher.class);
+        Root<MathTeacher> teacherRoot = query.from(MathTeacher.class);
+
+        Predicate predicate = null;
+        for (String name : nameList)
+        {
+            if (predicate==null){
+                //第一次进来
+                predicate = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), name);
+            }else{
+                predicate = criteriaBuilder.or(predicate,criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), name));
+            }
+        }
+        /*Predicate predicate1 = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), nameList.get(0));
+        Predicate predicate2 = criteriaBuilder.equal(teacherRoot.get(MathTeacher_.name), nameList.get(1));
+        Predicate predicate = criteriaBuilder.or(predicate1, predicate2);*/
+        query.where(predicate);
+        TypedQuery<MathTeacher> queryTeacher = entityManager.createQuery(query);
+
+        return queryTeacher.getResultList();
+    }
 }
