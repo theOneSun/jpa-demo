@@ -2,12 +2,18 @@ package com.example.demo.controller;
 
 import com.example.demo.dao.HighStudentRepository;
 import com.example.demo.dao.PersonRepository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.domain.HighStudent;
 import com.example.demo.domain.Person;
+import com.example.demo.domain.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +21,7 @@ import java.util.UUID;
  * @author sunjian.
  */
 @RestController
+@Slf4j
 public class DemoController
 {
 
@@ -40,5 +47,18 @@ public class DemoController
                                                       .toString()
                                                       .replaceAll("-", ""), name, "001", null);
         return highStudentRepository.save(highStudent);
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+    @GetMapping("updateTest")
+    @Transactional
+    public int updateTest(){
+        final User user = new User();
+        user.setName("更新");
+        user.setUserCode("hehe");
+        final int i = userRepository.updateByCode(user);
+        log.info("更新的数据量:"+i);
+        return i;
     }
 }

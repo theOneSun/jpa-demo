@@ -24,10 +24,12 @@ import java.util.List;
 public class User
 {
     @Id
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
     @Column(length = 20)
     private String name;
+    @Column(name = "user_code",length = 18)
+    private String userCode;
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(name = "role_user",
                joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
